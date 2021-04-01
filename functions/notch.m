@@ -1,4 +1,4 @@
-function notch(t, data, f_notch, fs)
+function amplifier_data_notch = notch(t, data, f_notch, fs)
 %notch (t, data, notch filter frequency, sampling frequency)
 wo =f_notch/(fs/2);
 bw = wo/35;
