@@ -1,6 +1,6 @@
-function intanDataImport
+function importIntanData
 
-% intanDataImport
+% read_Intan_RHS2000_file
 %
 % Version 3.0, 8 February 2021
 %
@@ -12,7 +12,7 @@ function intanDataImport
 %
 % Example:
 % >> clear
-% >> intanDataImport
+% >> read_Intan_RHS2000_file
 % >> whos
 % >> amplifier_channels(1)
 % >> plot(t, amplifier_data(1,:))
@@ -555,8 +555,9 @@ function out = notch_filter(in, fSample, fNotch, Bandwidth)
 %   transient disturbances.
 %
 % Example:  If neural data was sampled at 30 kSamples/sec
-% and you wish to implement a 50 Hz notch filter:
-%out = notch_filter(in, 30000, 50, 10);
+% and you wish to implement a 60 Hz notch filter:
+%
+% out = notch_filter(in, 30000, 60, 10);
 
 tstep = 1/fSample;
 Fc = fNotch*tstep;
@@ -598,6 +599,4 @@ function move_to_base_workspace(variable)
 variable_name = inputname(1);
 assignin('base', variable_name, variable);
 
-
 return;
-
