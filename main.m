@@ -9,12 +9,14 @@ importIntanData()
 f_notch = 50; %notch filter freq
 fs = 30000; %sampling freq
 
-%notch filter single
-channel = 1; 
-amplifier_data_notch = notch(t, amplifier_data, f_notch, fs, channel);
+%notch filter only
 
-%notch filer all
-amplifier_data_notchall = notchall (t, amplifier_data, f_notch, fs);
+    %notch filter single
+    channel = 1; 
+    amplifier_data_notch = notch(t, amplifier_data, f_notch, fs, 1);
+
+    %notch filer all
+    amplifier_data_notch_all = notch_all(t, amplifier_data, f_notch, fs, 1, 0);
 
 %stasios code
 %parameters
@@ -25,17 +27,31 @@ f2 = 300;
 f3 = 250;
 f4 = 4000;
 
-%filter single - low freq 1 to 300 Hz 
-bandpass_1_to_300_Hz = bandpass_lowfreq(f1, f2, fs, t, amplifier_data_notch);
+%bandpass only
+%bandpassfilter single - low + high
+    
+    %low freq  1 to 300 Hz
+    filter_1_to_300_Hz = filter_lowfreq(f1, f2, fs, t, amplifier_data, 1);
+    
+    %low freq  1 to 300 Hz + high freq 250 to 4k Hz
+    bandpass_single = filter_highfreq(f3, f4, fs, t, filter_1_to_300_Hz, 1);
+    
+%individual filters and notch combined (single channel and maybe add all
+%for each)
 
-%filter single - high freq 250 to 4k Hz 
-bandpass_250_to_4k_Hz = bandpass_highfreq(f3, f4, fs, t, amplifier_data_notch);
+    %low freq + notch
+    filter_lowfreq_notch = filter_lowfreq(f1, f2, fs, t, amplifier_data_notch, 1);
 
-%bandpassfilter single - low freq + high freq
-bandpass_250_to_4k_Hz = bandpass_highfreq_2(f3, f4, fs, t, bandpass_1_to_300_Hz);
+    %high freq + notch
+    filter_highfreq_notch = filter_highfreq(f3, f4, fs, t, amplifier_data_notch, 1);
 
-%bandpassfilter all - low freq + high freq
-bandpass_all_1_to_300_Hz = bandpass_all_lowfreq(f1, f2, fs, t);
+%bandpass filter and notch combined (single channel and all channels)
+    
+    %bandpassfilter single channel - low freq + high freq + notch
+    bandpass_notch_single = filter_highfreq(f3, f4, fs, t, filter_lowfreq_notch, 1);
+
+    %bandpassfilter all channels - low + high freq + notch
+    bandpass_notch_all = filter_highfreq_all(f3, f4, fs, t, filter_lowfreq_notch, 1, 0);
 
 %interface
 interfacedesign()
