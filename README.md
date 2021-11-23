@@ -1,6 +1,6 @@
-## Required add-ons
+## Required MATLAB add-ons
 
-* Symbolic Math Toolvox
+* Symbolic Math Toolbox
 * Statistics and Machine Learning Toolbox
 * Simulink
 * Signal Processing Toolbox
