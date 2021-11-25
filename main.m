@@ -1,4 +1,3 @@
-
 clear
 addpath("functions\")
 addpath("UI\")
