@@ -1,4 +1,4 @@
-function output = notch(data, f_notch, fs)
+function output = filter_notch(data, f_notch, fs)
     % Applies a notch filter to given data.
     %
     % Params
@@ -11,6 +11,6 @@ function output = notch(data, f_notch, fs)
 
     wo = f_notch/(fs/2);
     bw = wo/35;
-    [b,a] = iirnotch(wo,bw);
-    output = filtfilt(b,a, data);
+    [a,b] = iirnotch(wo,bw);
+    output = filtfilt(a,b, data);
 end

@@ -13,7 +13,7 @@ interfacedesign()
 %notch filter only
 
     %notch filter single
-    %amplifier_data_notch = notch(amplifier_data, f_notch, fs);
+    %amplifier_data_notch = filter_notch(amplifier_data, f_notch, fs);
     
 %Both bandpass filters only 
 
