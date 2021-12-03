@@ -9,8 +9,8 @@ function output = filter_notch(data, f_notch, fs)
     % Return
     % - data with filter applied (same size as input).
 
-    wo = f_notch/(fs/2);
-    bw = wo/35;
-    [a,b] = iirnotch(wo,bw);
+    w0 = f_notch/(fs/2);
+    bw = w0/35;
+    [a,b] = iirnotch(w0,bw);
     output = filtfilt(a,b, data);
 end
